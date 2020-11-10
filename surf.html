@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SURF 🌊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google fonts   -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--  Styles  -->
+    <link rel="stylesheet" href="assets/styles/main.css" />
+  </head>
+  <body onload="realtimeClock()">
+    <main>
+      <div id="map" class="show"></div>
+      <div id="report" class="hide">
+        <main class="current-report">
+          <a href="javascript:window.location.reload(true)">BACK TO MAP</a>
+
+          <h1 class="main-title">
+            SURF REPORT FOR <span data-current-location></span><br />
+            <br />
+            <span class="date-day" data-current-date></span>
+            <span class="section-title sectoin-title-date" id="realtime"></span>
+          </h1>
+          <div class="info">
+            <strong>About <span data-spot-info-header></span>:</strong>
+            <div data-spot-info-section></div>
+          </div>
+          <div class="date">
+            <div class="conditions">
+              <h3 style="text-decoration:underline; text-transform:uppercase;">
+                <span data-conditions></span>
+              </h3>
+              <span data-conditions-label></span>
+            </div>
+            <h4 class="section-title section-title-date">
+              <div class="wave-height-desc">
+                <span data-human-relation></span>:
+                <span data-min-height></span> - <span data-max-height></span> ft
+              </div>
+            </h4>
+            <br />
+            <div class="current-tide-wrapper">
+              Current Tide: <span data-current-tide-type></span> (<span
+                data-current-tide-time
+              ></span>
+              EST )
+              <br />
+              Wave Height: <span data-current-tide-height></span> ft. <br />
+            </div>
+            <br />
+            <div class="next-tide-wrapper">
+              Next Tide: <span data-next-tide-type></span> (<span
+                data-next-tide-time
+              ></span>
+              EST)
+              <br />
+              Wave Height: <span data-next-tide-height></span> ft. <br />
+            </div>
+          </div>
+          <div class="temp">
+            <div class="weather-container">
+              <div class="weather-wrapper">
+                <h4>Air Temp</h4>
+                <img data-weather alt="Assateague Wind &amp; Weather" />
+                <span
+                  class="section-title section-title-date"
+                  style="margin-left:2rem;"
+                >
+                  <span data-air-temp></span>° f</span
+                >
+              </div>
+
+              <div class="water-wrapper">
+                <h4>Water Temp</h4>
+                <img
+                  src="https://wa.cdn-surfline.com/quiver/0.6.2/weathericons/WATER_ICON.svg"
+                  alt="Water Temp"
+                />
+                <span
+                  class="section-title section-title-date"
+                  style="margin-left:2rem;"
+                >
+                  <span data-water-temp-min></span>° -
+                  <span data-water-temp-max></span>° f
+                </span>
+              </div>
+
+              <div class="wind-wrapper">
+                <h4>Wind Speed</h4>
+                <span
+                  class="section-title section-title-date"
+                  data-wind-speed
+                ></span>
+                kts
+              </div>
+            </div>
+          </div>
+
+          <div class="wind-and-swell">
+            <div class="wind-circle">
+              <div class="wind-degree">
+                <div class="wind-arrow"></div>
+              </div>
+            </div>
+            <div id="location-map">
+              <img
+                src="assets/images/compass-overlay-black.svg"
+                alt="compass"
+                width="100%"
+                height="100%"
+              />
+            </div>
+            <div class="swell-circle">
+              <div class="swell-degree">
+                <div class="swell-arrow"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info">
+            <div data-report-section></div>
+          </div>
+        </main>
+
+        <div class="upcoming-surf">
+          <button for="weather-toggle" class="show-upcoming-surf">
+            <span class="arrow-label">↑</span>
+            <span class="sr-only">Show upcoming surf</span>
+          </button>
+
+          <h2 class="main-title upcoming-surf-title">Upcoming Surf</h2>
+
+          <div class="upcoming-days" data-upcoming-days>
+            <template data-upcoming-day-template>
+              <div class="upcoming-day">
+                <h3 class="upcoming-day__date margin-bottom">
+                  <span data-upcoming-date></span>
+                </h3>
+                <p class="upcoming-day__rating">
+                  <b>AM Rating:</b> <br />
+                  <span data-upcoming-am-rating></span> —
+                  <span data-am-human-relation></span>
+                </p>
+                <p class="upcoming-day__am_min_max">
+                  <b>AM Min/Max:</b> <span data-upcoming-am-min></span>-<span
+                    data-upcoming-am-max
+                  ></span
+                  >ft.
+                </p>
+                <p class="upcoming-day__rating">
+                  <b>PM Rating:</b> <br />
+                  <span data-upcoming-pm-rating></span> —
+                  <span data-pm-human-relation></span>
+                </p>
+                <p class="upcoming-day__pm_min-max">
+                  <b>PM Min/Max:</b> <span data-upcoming-pm-min></span>-<span
+                    data-upcoming-pm-max
+                  ></span
+                  >ft.
+                </p>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="./config.js"></script>
+
+    <script type="text/javascript">
+      var JSLink = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      var JSElement = document.createElement("script");
+      JSElement.src = JSLink;
+      document.getElementsByTagName("body")[0].appendChild(JSElement);
+    </script>
+
+    <script src="assets/scripts/map.js" defer></script>
+    <script src="assets/scripts/app.js" defer></script>
+    <script src="assets/scripts/clock.js" defer></script>
+  </body>
+</html>
