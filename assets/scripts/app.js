@@ -34,6 +34,12 @@ function renderReportPage(id) {
     updateSwell(swell);
     updateWind(surf.wind.direction);
     displaySelectedSurf(surf);
+
+    window.setTimeout(function() {
+      const currentReport = document.querySelector(".current-report");
+      currentReport.style.visibility = "visible";
+      currentReport.style.opacity = 1;
+    });
   });
 
   // Get surf reports for next 6 days
