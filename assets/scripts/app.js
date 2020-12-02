@@ -29,21 +29,15 @@ function renderReportPage(id) {
   });
 
   // Get current surf report
-  getSurf(id, BASE_REPORT_URL).then(surf => {
+  getSurf(id, BASE_REPORT_URL).then((surf) => {
     let swell = primarySwell(surf.swells);
     updateSwell(swell);
     updateWind(surf.wind.direction);
     displaySelectedSurf(surf);
-
-    window.setTimeout(function() {
-      const currentReport = document.querySelector(".current-report");
-      currentReport.style.visibility = "visible";
-      currentReport.style.opacity = 1;
-    });
   });
 
   // Get surf reports for next 6 days
-  getFutureSurf(id, BASE_UPCOMING_DAYS_URL).then(days => {
+  getFutureSurf(id, BASE_UPCOMING_DAYS_URL).then((days) => {
     displayFutureForecast(days);
   });
 }
@@ -54,9 +48,9 @@ function primarySwell(swells) {
     height: -Infinity,
     direction: -Infinity,
     directionMin: -Infinity,
-    period: -Infinity
+    period: -Infinity,
   };
-  swells.forEach(el => {
+  swells.forEach((el) => {
     const { height, direction, directionMin, period } = el;
     if (height > res.height) {
       res.height = height;
@@ -126,14 +120,16 @@ function getSurf(spotId, url) {
   let targetUrl = url;
 
   return fetch(proxyUrl + targetUrl)
-    .then(res => res.json())
-    .then(data => {
+    .then((res) => res.json())
+    .then((data) => {
       const { associated, units, ...surfData } = data;
 
       let date = new Date(data.report.timestamp * 1000)
         .toString()
         .split(" ", 4)
         .join(" ");
+
+      hideLoader();
 
       return {
         spot_info: spot,
@@ -145,7 +141,7 @@ function getSurf(spotId, url) {
         waveHeight: data.forecast.waveHeight,
         weather: data.forecast.weather,
         wind: data.forecast.wind,
-        report: data.report
+        report: data.report,
       };
     });
 }
@@ -154,7 +150,7 @@ function getFutureSurf(spotId, url) {
   let spot = getSpot(spotId);
   let proxyUrl = "https://ted-proxy.herokuapp.com/";
   let targetUrl = url;
-  return fetch(proxyUrl + targetUrl).then(res => res.json());
+  return fetch(proxyUrl + targetUrl).then((res) => res.json());
 }
 
 function formatConditions(conditions) {
@@ -165,6 +161,14 @@ function styleTime(timestamp) {
   var timestamp = new Date(timestamp * 1000);
   var formattedTime = timestamp.getHours() + ":" + timestamp.getMinutes();
   return formattedTime;
+}
+
+function hideLoader() {
+  const currentReport = document.querySelector(".current-report");
+  const loader = document.querySelector(".loading-wrapper");
+  loader.style.display = "none";
+  currentReport.style.visibility = "visible";
+  currentReport.style.opacity = 1;
 }
 
 // Update wind direction arrow to degress on map
@@ -237,14 +241,14 @@ function getSpot(id) {
       name: "Assateague Island, MD",
       about:
         "Assateague Island is a 37-mile (60 km) long barrier island located off the eastern coast of the Delmarva Peninsula facing the Atlantic Ocean. The northern two-thirds of the island is in Maryland while the southern third is in Virginia.",
-      image: "assets/images/assateague-map.png"
+      image: "assets/images/assateague-map.png",
     },
     "584204214e65fad6a7709d1b": {
       name: "Outer Banks, NC",
       about:
         "The Outer Banks are a 200-mile (320 km) string of barrier islands and spits off the coast of North Carolina and southeastern Virginia, on the east coast of the United States. They line most of the North Carolina coastline, separating Currituck Sound, Albemarle Sound, and Pamlico Sound from the Atlantic Ocean.",
-      image: "assets/images/obx-map.png"
-    }
+      image: "assets/images/obx-map.png",
+    },
   };
 
   return spot_info[id];

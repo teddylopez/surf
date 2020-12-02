@@ -18,7 +18,10 @@
     <main>
       <div id="map" class="show"></div>
       <div id="report" class="hide">
-        <main class="current-report" style="opacity:0;">
+        <div class="loading-wrapper">
+          <img src="./assets/images/loading.svg" />
+        </div>
+        <main class="current-report" style="opacity: 0;">
           <a href="javascript:window.location.reload(true)">BACK TO MAP</a>
 
           <h1 class="main-title">
@@ -33,7 +36,9 @@
           </div>
           <div class="date">
             <div class="conditions">
-              <h3 style="text-decoration:underline; text-transform:uppercase;">
+              <h3
+                style="text-decoration: underline; text-transform: uppercase;"
+              >
                 <span data-conditions></span>
               </h3>
               <span data-conditions-label></span>
@@ -70,7 +75,7 @@
                 <img data-weather alt="Assateague Wind &amp; Weather" />
                 <span
                   class="section-title section-title-date"
-                  style="margin-left:2rem;"
+                  style="margin-left: 2rem;"
                 >
                   <span data-air-temp></span>° f</span
                 >
@@ -84,7 +89,7 @@
                 />
                 <span
                   class="section-title section-title-date"
-                  style="margin-left:2rem;"
+                  style="margin-left: 2rem;"
                 >
                   <span data-water-temp-min></span>° -
                   <span data-water-temp-max></span>° f
@@ -172,10 +177,9 @@
     </main>
 
     <!-- Scripts -->
-    <script src="./config.js"></script>
-
     <script type="text/javascript">
-      var JSLink = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      var JSLink =
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyBb_TMzv1G6CoeAKq87mzVerH3WvwgYF6g&callback=initMap";
       var JSElement = document.createElement("script");
       JSElement.src = JSLink;
       document.getElementsByTagName("body")[0].appendChild(JSElement);
