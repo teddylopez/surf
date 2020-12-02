@@ -14,24 +14,25 @@
     <!--  Styles  -->
     <link rel="stylesheet" href="assets/styles/main.css" />
   </head>
-  <body onload="realtimeClock()">
+  <body>
     <main>
       <div id="map" class="show"></div>
       <div id="report" class="hide">
-        <div class="loading-wrapper">
-          <img src="./assets/images/loading.svg" />
-        </div>
-        <main class="current-report" style="opacity: 0;">
+        <main class="current-report">
           <a href="javascript:window.location.reload(true)">BACK TO MAP</a>
-
-          <h1 class="main-title">
-            SURF REPORT FOR <span data-current-location></span><br />
-            <br />
-            <span class="date-day" data-current-date></span>
-            <span class="section-title sectoin-title-date" id="realtime"></span>
-          </h1>
-          <div class="info">
-            <strong>About <span data-spot-info-header></span>:</strong>
+          <div class="main-title">
+            <h1 class="location">
+              SURF REPORT FOR <span data-current-location></span>
+            </h1>
+            <h1>
+              <div class="date-day">
+                <span data-current-date></span> <br />
+                <span class="section-title" id="realtime">hi</span>
+              </div>
+            </h1>
+          </div>
+          <div class="location-info">
+            <strong><span data-spot-info-header></span>:</strong>
             <div data-spot-info-section></div>
           </div>
           <div class="date">
@@ -70,27 +71,23 @@
           </div>
           <div class="temp">
             <div class="weather-container">
-              <div class="weather-wrapper">
+              <div class="air-wrapper">
                 <h4>Air Temp</h4>
-                <img data-weather alt="Assateague Wind &amp; Weather" />
-                <span
-                  class="section-title section-title-date"
-                  style="margin-left: 2rem;"
+                <div
+                  class="air-info"
+                  style="display: flex; align-items: center;"
                 >
-                  <span data-air-temp></span>° f</span
-                >
+                  <img data-weather alt="Assateague Wind &amp; Weather" />
+                  <span><span data-air-temp></span>° f</span>
+                </div>
               </div>
-
               <div class="water-wrapper">
                 <h4>Water Temp</h4>
                 <img
                   src="https://wa.cdn-surfline.com/quiver/0.6.2/weathericons/WATER_ICON.svg"
                   alt="Water Temp"
                 />
-                <span
-                  class="section-title section-title-date"
-                  style="margin-left: 2rem;"
-                >
+                <span>
                   <span data-water-temp-min></span>° -
                   <span data-water-temp-max></span>° f
                 </span>
@@ -187,6 +184,5 @@
 
     <script src="assets/scripts/map.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
-    <script src="assets/scripts/clock.js" defer></script>
   </body>
 </html>

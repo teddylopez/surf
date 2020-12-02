@@ -1,8 +1,11 @@
 function renderReportPage(id) {
   const map = document.getElementById("map");
   const report = document.getElementById("report");
+  const currentReport = document.querySelector(".current-report");
   map.classList.toggle("hide");
   report.classList.toggle("hide");
+  currentReport.style.visibility = "visible";
+  currentReport.style.opacity = 1;
 
   const BASE_REPORT_URL = `http://services.surfline.com/kbyg/spots/reports?spotId=${id}`;
   const BASE_UPCOMING_DAYS_URL = `http://services.surfline.com/kbyg/spots/forecasts/conditions?spotId=${id}&days=6`;
@@ -23,6 +26,8 @@ function renderReportPage(id) {
   const windDirectionArrow = document.querySelector(
     "[data-wind-direction-arrow]"
   );
+
+  realtimeClock();
 
   upcomingSurfToggle.addEventListener("click", () => {
     upcomingSurf.classList.toggle("show-surf");
@@ -129,8 +134,6 @@ function getSurf(spotId, url) {
         .split(" ", 4)
         .join(" ");
 
-      hideLoader();
-
       return {
         spot_info: spot,
         date: date,
@@ -163,14 +166,6 @@ function styleTime(timestamp) {
   return formattedTime;
 }
 
-function hideLoader() {
-  const currentReport = document.querySelector(".current-report");
-  const loader = document.querySelector(".loading-wrapper");
-  loader.style.display = "none";
-  currentReport.style.visibility = "visible";
-  currentReport.style.opacity = 1;
-}
-
 // Update wind direction arrow to degress on map
 function updateWind(degree) {
   const windCircle = document.querySelector(".wind-circle");
@@ -183,9 +178,8 @@ function updateWind(degree) {
 }
 
 // Update swell direction arrow to degrees on map
-function updateSwell(degree) {
-  let min = degree["directionMin"];
-  let max = degree["direction"];
+function updateSwell(swell) {
+  let degree = swell["direction"];
   const swellCircle = document.querySelector(".swell-circle");
   const swellArrow = document.querySelector(".swell-arrow");
   const swellDegree = document.querySelector(".swell-degree");
@@ -232,6 +226,24 @@ function displayFutureForecast(days) {
 function convertTime(timestamp) {
   let date = new Date(timestamp * 1000);
   return date.toDateString();
+}
+
+function realtimeClock() {
+  var time = new Date();
+  var hours = time.getHours();
+  var minutes = time.getMinutes();
+  var seconds = time.getSeconds();
+
+  // Pad hours, min, seconds with leading 0s:
+  hours = ("0" + hours).slice(-2);
+  minutes = ("0" + minutes).slice(-2);
+  seconds = ("0" + seconds).slice(-2);
+
+  // Display time:
+  var timeSpot = (document.getElementById("realtime").innerHTML =
+    hours + "  :  " + minutes + "  :  " + seconds);
+
+  var t = setTimeout(realtimeClock, 500);
 }
 
 // Get spot information
