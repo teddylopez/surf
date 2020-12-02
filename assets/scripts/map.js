@@ -1,63 +1,63 @@
-window.onload = function() {
+window.onload = function () {
   initMap();
 };
 function initMap() {
   // // map options
   var options = {
-    zoom: 7,
-    center: { lat: 36.88107, lng: -75.90692 },
+    zoom: 6,
+    center: { lat: 37.9803952, lng: -74.6840892 },
     styles: [
       {
         elementType: "labels",
         stylers: [
           {
-            visibility: "off"
+            visibility: "off",
           },
           {
-            color: "#f49f53"
-          }
-        ]
+            color: "#f49f53",
+          },
+        ],
       },
       {
         featureType: "landscape",
         stylers: [
           {
-            color: "#f9ddc5"
+            color: "#f9ddc5",
           },
           {
-            lightness: -7
-          }
-        ]
+            lightness: -7,
+          },
+        ],
       },
       {
         featureType: "water",
         stylers: [
           {
-            color: "#1994bf"
+            color: "#1994bf",
           },
           {
-            saturation: -69
+            saturation: -69,
           },
           {
-            gamma: 0.99
+            gamma: 0.99,
           },
           {
-            lightness: 43
-          }
-        ]
+            lightness: 43,
+          },
+        ],
       },
       {
         featureType: "poi.park",
         stylers: [
           {
-            color: "#645c20"
+            color: "#645c20",
           },
           {
-            lightness: 39
-          }
-        ]
-      }
-    ]
+            lightness: 39,
+          },
+        ],
+      },
+    ],
   };
 
   // new map
@@ -71,7 +71,7 @@ function initMap() {
       icon: "assets/images/pirate-30px.png",
       get content() {
         return `<h3><a style=text-decoration:none; onclick=renderReportPage("${this.id}");>${this.name}</a></h3>`;
-      }
+      },
     },
     {
       name: "Outer Banks, NC",
@@ -80,8 +80,17 @@ function initMap() {
       icon: "assets/images/pirate-30px.png",
       get content() {
         return `<h3><a style=text-decoration:none; onclick=renderReportPage("${this.id}");>${this.name}</a></h3>`;
-      }
-    }
+      },
+    },
+    {
+      name: "Rockaway Beach, NY",
+      id: "584204214e65fad6a7709d0a",
+      coords: { lat: 40.586712, lng: -73.811474 },
+      icon: "assets/images/pirate-30px.png",
+      get content() {
+        return `<h3><a style=text-decoration:none; onclick=renderReportPage("${this.id}");>${this.name}</a></h3>`;
+      },
+    },
   ];
 
   for (var i = 0; i < markers.length; i++) {
@@ -92,7 +101,7 @@ function initMap() {
     var marker = new google.maps.Marker({
       position: obj.coords,
       map: map,
-      content: obj.content
+      content: obj.content,
     });
 
     if (obj.icon) {
@@ -101,10 +110,10 @@ function initMap() {
 
     if (obj.content) {
       var infoWindow = new google.maps.InfoWindow({
-        content: obj.content
+        content: obj.content,
       });
 
-      marker.addListener("click", function() {
+      marker.addListener("click", function () {
         infoWindow.open(map, marker);
       });
     }

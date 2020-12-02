@@ -261,6 +261,12 @@ function getSpot(id) {
         "The Outer Banks are a 200-mile (320 km) string of barrier islands and spits off the coast of North Carolina and southeastern Virginia, on the east coast of the United States. They line most of the North Carolina coastline, separating Currituck Sound, Albemarle Sound, and Pamlico Sound from the Atlantic Ocean.",
       image: "assets/images/obx-map.png",
     },
+    "584204214e65fad6a7709d0a": {
+      name: "Rockaway Beach, NY",
+      about:
+        "Rockaway Beach is a neighborhood on the Rockaway Peninsula in the New York City borough of Queens. The neighborhood is bounded by Arverne to the east and Rockaway Park to the west. It is named for the Rockaway Beach and Boardwalk, which is the largest urban beach in the United States, stretching from Beach 3rd to Beach 153rd Streets on the Atlantic Ocean.",
+      image: "assets/images/rockaway-map.png",
+    },
   };
 
   return spot_info[id];
