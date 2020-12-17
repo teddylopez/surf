@@ -79,6 +79,41 @@ a {
   color: var(--clr-accent);
 }
 
+#loading-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  z-index: 100;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  visibility: hidden;
+}
+
+#loading {
+  width: 6rem;
+  height: 6rem;
+  border: 5px solid #f3f3f3;
+  border-top: 6px solid #9c41f2;
+  border-radius: 100%;
+  margin: auto;
+  animation: spin 1s infinite linear;
+}
+
+#loading-container.display {
+  visibility: visible;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .margin-bottom {
   margin-bottom: 15px !important;
 }

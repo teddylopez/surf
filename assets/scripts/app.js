@@ -1,11 +1,10 @@
 function renderReportPage(id) {
+  const loadingContainer = document.querySelector("#loading-container");
+  loadingContainer.classList.add("display");
   const map = document.getElementById("map");
   const report = document.getElementById("report");
-  const currentReport = document.querySelector(".current-report");
   map.classList.toggle("hide");
   report.classList.toggle("hide");
-  currentReport.style.visibility = "visible";
-  currentReport.style.opacity = 1;
 
   const BASE_REPORT_URL = `http://services.surfline.com/kbyg/spots/reports?spotId=${id}`;
   const BASE_UPCOMING_DAYS_URL = `http://services.surfline.com/kbyg/spots/forecasts/conditions?spotId=${id}&days=6`;
@@ -127,6 +126,7 @@ function getSurf(spotId, url) {
   return fetch(proxyUrl + targetUrl)
     .then((res) => res.json())
     .then((data) => {
+      hideLoading();
       const { associated, units, ...surfData } = data;
 
       let date = new Date(data.report.timestamp * 1000)
@@ -154,6 +154,15 @@ function getFutureSurf(spotId, url) {
   let proxyUrl = "https://ted-proxy.herokuapp.com/";
   let targetUrl = url;
   return fetch(proxyUrl + targetUrl).then((res) => res.json());
+}
+
+// Hide loading spinner when ajax response is fetched:
+function hideLoading() {
+  const loadingContainer = document.querySelector("#loading-container");
+  const currentReport = document.querySelector(".current-report");
+  loadingContainer.classList.remove("display");
+  currentReport.style.visibility = "visible";
+  currentReport.style.opacity = 1;
 }
 
 function formatConditions(conditions) {
