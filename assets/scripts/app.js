@@ -34,7 +34,7 @@ function renderReportPage(id) {
 
   // Get current surf report
   getSurf(id, BASE_REPORT_URL).then((surf) => {
-    let swell = primarySwell(surf.swells);
+    const swell = primarySwell(surf.swells);
     updateSwell(swell);
     updateWind(surf.wind.direction);
     displaySelectedSurf(surf);
@@ -117,11 +117,11 @@ function displaySelectedSurf(report) {
 }
 
 function getSurf(spotId, url) {
-  let spot = getSpot(spotId);
+  const spot = getSpot(spotId);
 
   // Proxy needed to conform to CSRF standards
-  let proxyUrl = "https://ted-proxy.herokuapp.com/";
-  let targetUrl = url;
+  const proxyUrl = "https://ted-proxy.herokuapp.com/";
+  const targetUrl = url;
 
   return fetch(proxyUrl + targetUrl)
     .then((res) => res.json())
@@ -129,7 +129,7 @@ function getSurf(spotId, url) {
       hideLoading();
       const { associated, units, ...surfData } = data;
 
-      let date = new Date(data.report.timestamp * 1000)
+      const date = new Date(data.report.timestamp * 1000)
         .toString()
         .split(" ", 4)
         .join(" ");
@@ -150,9 +150,9 @@ function getSurf(spotId, url) {
 }
 
 function getFutureSurf(spotId, url) {
-  let spot = getSpot(spotId);
-  let proxyUrl = "https://ted-proxy.herokuapp.com/";
-  let targetUrl = url;
+  const spot = getSpot(spotId);
+  const proxyUrl = "https://ted-proxy.herokuapp.com/";
+  const targetUrl = url;
   return fetch(proxyUrl + targetUrl).then((res) => res.json());
 }
 
@@ -170,8 +170,8 @@ function formatConditions(conditions) {
 }
 
 function styleTime(timestamp) {
-  var timestamp = new Date(timestamp * 1000);
-  var formattedTime = timestamp.getHours() + ":" + timestamp.getMinutes();
+  const time = new Date(timestamp * 1000);
+  const formattedTime = time.getHours() + ":" + time.getMinutes();
   return formattedTime;
 }
 
@@ -188,7 +188,7 @@ function updateWind(degree) {
 
 // Update swell direction arrow to degrees on map
 function updateSwell(swell) {
-  let degree = swell["direction"];
+  const degree = swell["direction"];
   const swellCircle = document.querySelector(".swell-circle");
   const swellArrow = document.querySelector(".swell-arrow");
   const swellDegree = document.querySelector(".swell-degree");
@@ -233,15 +233,15 @@ function displayFutureForecast(days) {
 }
 
 function convertTime(timestamp) {
-  let date = new Date(timestamp * 1000);
+  const date = new Date(timestamp * 1000);
   return date.toDateString();
 }
 
 function realtimeClock() {
-  var time = new Date();
-  var hours = time.getHours();
-  var minutes = time.getMinutes();
-  var seconds = time.getSeconds();
+  const time = new Date();
+  let hours = time.getHours();
+  let minutes = time.getMinutes();
+  let seconds = time.getSeconds();
 
   // Pad hours, min, seconds with leading 0s:
   hours = ("0" + hours).slice(-2);
@@ -249,10 +249,10 @@ function realtimeClock() {
   seconds = ("0" + seconds).slice(-2);
 
   // Display time:
-  var timeSpot = (document.getElementById("realtime").innerHTML =
+  const timeSpot = (document.getElementById("realtime").innerHTML =
     hours + "  :  " + minutes + "  :  " + seconds);
 
-  var t = setTimeout(realtimeClock, 500);
+  const t = setTimeout(realtimeClock, 500);
 }
 
 // Get spot information
